@@ -1,0 +1,22 @@
+{
+    "name": "wsnyc/class-finder",
+    "description": "A utility for obtaining fully qualified class names from a directory.",
+    "type": "library",
+    "require": {
+        "symfony/finder": "3.2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "WSNYC\\ClassFinder\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WSNYC\\ClassFinder\\Tests\\": "tests"
+        }
+    }
+}
