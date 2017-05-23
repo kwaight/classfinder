@@ -10,16 +10,21 @@ class ClassFinder
      * Find all the class and interface names in a given directory.
      *
      * @param  string  $directory
+     * @param  string  $pattern  An optional string pattern, eg '*Service.php'
      * @return array
      */
     public static function findClasses($directory, $pattern = '*.php')
     {
         $classes = [];
-        foreach (Finder::create()->in($directory)->name($pattern) as $file) {
-            $classes[] = self::findClass($file->getRealPath());
+        if(file_exists($directory)) {
+            $finder = Finder::create()->in($directory)->name($pattern);
+            foreach ($finder as $file) {
+                $classes[] = self::findClass($file->getRealPath());
+            }
         }
         return array_filter($classes);
     }
+
     /**
      * Extract the class name from the file at the given path.
      *
@@ -37,7 +42,9 @@ class ClassFinder
                 return ltrim($namespace.'\\'.self::getClass($key + 2, $tokens), '\\');
             }
         }
+        return null;
     }
+
     /**
      * Find the namespace in the tokens starting at a given key.
      *
@@ -56,7 +63,9 @@ class ClassFinder
                 return $namespace;
             }
         }
+        return null;
     }
+
     /**
      * Find the class in the tokens starting at a given key.
      *
@@ -75,7 +84,9 @@ class ClassFinder
                 return $class;
             }
         }
+        return null;
     }
+
     /**
      * Determine if the given token is a namespace keyword.
      *
@@ -86,6 +97,7 @@ class ClassFinder
     {
         return is_array($token) && $token[0] == T_NAMESPACE;
     }
+
     /**
      * Determine if the given token is a class or interface keyword.
      *
@@ -96,6 +108,7 @@ class ClassFinder
     {
         return is_array($token) && ($token[0] == T_CLASS || $token[0] == T_INTERFACE);
     }
+
     /**
      * Determine if the given token is part of the namespace.
      *
@@ -106,6 +119,7 @@ class ClassFinder
     {
         return is_array($token) && ($token[0] == T_STRING || $token[0] == T_NS_SEPARATOR);
     }
+
     /**
      * Determine if the given token is part of the class.
      *
@@ -116,6 +130,7 @@ class ClassFinder
     {
         return is_array($token) && $token[0] == T_STRING;
     }
+
     /**
      * Determine if the given token is whitespace.
      *
