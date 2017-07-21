@@ -8,10 +8,16 @@ use WSNYC\Tests\Fixtures\DummyClass;
 use WSNYC\Tests\Fixtures\DummyClassTwo;
 use WSNYC\Tests\Fixtures\Nested\DummyClassNested;
 
+/**
+ * @covers \WSNYC\ClassFinder\ClassFinder::<protected>
+ */
 class ClassFinderTest extends TestCase
 {
     /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
+     *
      * @group class-finder-tests
+     *
      *
      * @test
      */
@@ -24,6 +30,8 @@ class ClassFinderTest extends TestCase
     }
 
     /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
+     *
      * @group class-finder-tests
      *
      * @test
@@ -36,6 +44,8 @@ class ClassFinderTest extends TestCase
     }
 
     /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
+     *
      * @group class-finder-tests
      *
      * @test
@@ -48,6 +58,8 @@ class ClassFinderTest extends TestCase
     }
 
     /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
+     *
      * @group class-finder-tests
      *
      * @test
@@ -61,6 +73,8 @@ class ClassFinderTest extends TestCase
     }
 
     /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClass
+     *
      * @group class-finder-tests
      *
      * @test
@@ -70,5 +84,19 @@ class ClassFinderTest extends TestCase
         $class = ClassFinder::findClass(__DIR__ . '/Fixtures/DummyClass.php');
 
         $this->assertEquals(DummyClass::class, $class);
+    }
+
+    /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClass
+     *
+     * @group class-finder-tests
+     *
+     * @test
+     */
+    public function it_returns_null_for_non_classes()
+    {
+        $class = ClassFinder::findClass(__DIR__ . '/Fixtures/not_a_class.php');
+
+        $this->assertNull($class);
     }
 }
