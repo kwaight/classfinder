@@ -9,15 +9,14 @@ use WSNYC\Tests\Fixtures\DummyClassTwo;
 use WSNYC\Tests\Fixtures\Nested\DummyClassNested;
 
 /**
- * @covers \WSNYC\ClassFinder\ClassFinder::<protected>
+ * @covers \WSNYC\ClassFinder\ClassFinder::<!public>
+ *
+ * @group class-finder-tests
  */
 class ClassFinderTest extends TestCase
 {
     /**
      * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
-     *
-     * @group class-finder-tests
-     *
      *
      * @test
      */
@@ -32,8 +31,6 @@ class ClassFinderTest extends TestCase
     /**
      * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
      *
-     * @group class-finder-tests
-     *
      * @test
      */
     public function it_finds_all_nested_classes_in_directory()
@@ -46,7 +43,17 @@ class ClassFinderTest extends TestCase
     /**
      * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
      *
-     * @group class-finder-tests
+     * @test
+     */
+    public function it_sorts_the_results_alphabetically()
+    {
+        $classes = ClassFinder::findClasses(__DIR__ . '/Fixtures');
+
+        $this->assertEquals(DummyClass::class, array_shift($classes));
+    }
+
+    /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
      *
      * @test
      */
@@ -59,8 +66,6 @@ class ClassFinderTest extends TestCase
 
     /**
      * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
-     *
-     * @group class-finder-tests
      *
      * @test
      */
@@ -75,8 +80,6 @@ class ClassFinderTest extends TestCase
     /**
      * @covers \WSNYC\ClassFinder\ClassFinder::findClass
      *
-     * @group class-finder-tests
-     *
      * @test
      */
     public function it_gets_fully_qualified_class_name_of_class()
@@ -88,8 +91,6 @@ class ClassFinderTest extends TestCase
 
     /**
      * @covers \WSNYC\ClassFinder\ClassFinder::findClass
-     *
-     * @group class-finder-tests
      *
      * @test
      */

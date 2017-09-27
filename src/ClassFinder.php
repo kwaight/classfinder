@@ -16,12 +16,13 @@ class ClassFinder
     public static function findClasses($directory, $pattern = '*.php')
     {
         $classes = [];
-        if(file_exists($directory)) {
+        if (file_exists($directory)) {
             $finder = Finder::create()->in($directory)->name($pattern);
             foreach ($finder as $file) {
                 $classes[] = self::findClass($file->getRealPath());
             }
         }
+        asort($classes);
         return array_filter($classes);
     }
 
