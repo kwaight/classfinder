@@ -7,20 +7,32 @@ use Symfony\Component\Finder\Finder;
 class ClassFinder
 {
     /**
+     * @param string $directory
+     * @param string $pattern
+     * @return array
+     */
+    public static function findClassesSafely(string $directory, string $pattern = '*.php'): array
+    {
+        if (!is_dir($directory)) {
+            return [];
+        }
+
+        return self::findClasses($directory, $pattern);
+    }
+
+    /**
      * Find all the class and interface names in a given directory.
      *
      * @param  string  $directory
-     * @param  string  $pattern  An optional string pattern, eg '*Service.php'
+     * @param  string|array  $pattern  An optional string pattern, eg '*Service.php'
      * @return array
      */
     public static function findClasses($directory, $pattern = '*.php')
     {
         $classes = [];
-        if (file_exists($directory)) {
-            $finder = Finder::create()->in($directory)->name($pattern);
-            foreach ($finder as $file) {
-                $classes[] = self::findClass($file->getRealPath());
-            }
+        $finder = Finder::create()->in($directory)->name($pattern);
+        foreach ($finder as $file) {
+            $classes[] = self::findClass($file->getRealPath());
         }
         asort($classes);
         return array_filter($classes);
