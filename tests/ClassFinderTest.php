@@ -53,15 +53,27 @@ class ClassFinderTest extends TestCase
     }
 
     /**
-     * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClassesSafely
      *
      * @test
      */
     public function it_suppresses_non_existent_directory_exceptions()
     {
-        $classes = ClassFinder::findClasses(__DIR__ . '/FixturesThatDoNotExist');
+        $classes = ClassFinder::findClassesSafely(__DIR__ . '/FixturesThatDoNotExist');
 
         $this->assertEquals([], $classes);
+    }
+
+    /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClassesSafely
+     *
+     * @test
+     */
+    public function it_finds_classes_like_normal_if_directory_exists()
+    {
+        $classes = ClassFinder::findClassesSafely(__DIR__ . '/Fixtures');
+
+        $this->assertContains(DummyClassNested::class, $classes);
     }
 
     /**
