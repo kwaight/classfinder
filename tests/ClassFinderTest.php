@@ -53,13 +53,13 @@ class ClassFinderTest extends TestCase
     }
 
     /**
-     * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClassesSafely
      *
      * @test
      */
     public function it_suppresses_non_existent_directory_exceptions()
     {
-        $classes = ClassFinder::findClasses(__DIR__ . '/FixturesThatDoNotExist');
+        $classes = ClassFinder::findClassesSafely(__DIR__ . '/FixturesThatDoNotExist');
 
         $this->assertEquals([], $classes);
     }
