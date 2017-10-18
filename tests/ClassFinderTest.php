@@ -65,6 +65,18 @@ class ClassFinderTest extends TestCase
     }
 
     /**
+     * @covers \WSNYC\ClassFinder\ClassFinder::findClassesSafely
+     *
+     * @test
+     */
+    public function it_finds_classes_like_normal_if_directory_exists()
+    {
+        $classes = ClassFinder::findClassesSafely(__DIR__ . '/Fixtures');
+
+        $this->assertContains(DummyClassNested::class, $classes);
+    }
+
+    /**
      * @covers \WSNYC\ClassFinder\ClassFinder::findClasses
      *
      * @test
