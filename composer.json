@@ -1,5 +1,5 @@
 {
-    "name": "wsnyc/classfinder",
+    "name": "classfinder/classfinder",
     "description": "A utility for obtaining fully qualified class names from a directory.",
     "type": "library",
     "require": {
