@@ -1,5 +1,5 @@
 {
-    "name": "classfinder/classfinder",
+    "name": "kwaight/classfinder",
     "description": "A utility for obtaining fully qualified class names from a directory.",
     "type": "library",
     "require": {
